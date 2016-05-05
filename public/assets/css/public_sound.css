@@ -1,0 +1,92 @@
+/* ボディ */
+body{
+    /* 背景画像は著作権を考えないと捕まっちゃうよ!! */
+    background-image: url();
+    background-attachment: fixed;
+    background-position: center;
+}
+
+/* ページタイトル */
+.page_title{
+    margin-top: 100px;
+    font-size: 21px;
+}
+
+/* 更新履歴 */
+.update_history{
+    margin-top: 100px;
+}
+
+.history_box{
+    height: 100px;
+    border: solid 2px #000;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* メインコンテンツ */
+.main_contents{
+    margin-top: 100px;
+}
+
+.sound{
+    margin-top: 100px;
+    padding-bottom: 50px;
+    border-bottom: solid 2px #000;
+}
+
+.sound .title{
+    font-size:26px;
+}
+
+.sound .jenre{
+    font-size:20px;
+}
+
+.sound .play audio{
+    width: 100%;
+}
+
+.sound .message{
+    margin-top: 15px;
+    font-size:23px;
+}
+
+/* 自己紹介 */
+.profiles{
+    margin-top: 150px;
+    font-size:23px;
+}
+
+.profiles h2{
+    margin-bottom: 30px;
+}
+
+.profiles ul{
+    margin-top: 40px;
+}
+
+.profiles .no1,.no3{
+    background-color: #313131;
+    color: #fff;
+    padding: 100px 0;
+}
+
+.profiles .no2,.no4{
+    padding: 100px 0;
+}
+
+/* フッター */
+footer{
+    font-size:28px;
+    color:#fff;
+    background-color: #313131;
+
+}
+
+.dropdown-menu.right {
+ right:0;
+ left:auto;
+ &::before {left:auto !important; right:9px;}
+ &::after {left:auto !important; right:10px;}
+}
