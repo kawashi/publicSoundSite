@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="message col-md-12">
-                    <?php echo $sound["message"]; ?>
+                    <?php echo nl2br($sound["message"]); ?>
                 </div>
             </div>
             <?php endforeach; ?>
