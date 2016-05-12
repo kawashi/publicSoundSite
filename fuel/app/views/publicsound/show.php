@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bootstrapテスト</title>
+    <title>楽曲配布サイト</title>
     <?php echo Asset::CSS('public_sound.css'); ?>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -38,7 +38,7 @@
                     <div class="play">
                     <!-- 本当はいくつかの拡張子のファイルを用意する -->
                     
-                    <audio src="<?php echo Asset::get_file($sound['data'].'.ogg','sound'); ?>" controls></audio>
+                    <audio src="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" controls></audio>
                     </div>
                     <div class="downloads row">
                         <div class="btn-group col-md-12 downloads" role="group">
@@ -47,13 +47,13 @@
 		                    </button>
                 	    	<ul class="dropdown-menu right" role="menu">
 			                    <li>
-			                        <a href="<?php echo Asset::get_file($sound['data'].'.mp3','sound'); ?>" download="<?php echo $sound['data']; ?>.mp3">MP3</a>
+			                        <a href="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.mp3">MP3</a>
 			                    </li>
+                		    	<!--<li>
+                		    	    <a href="<?php echo Asset::get_file($sound['data'].'.wav','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.wav">WAV</a>
+                                </li>-->
                 		    	<li>
-                		    	    <a href="<?php echo Asset::get_file($sound['data'].'.wav','sound'); ?>" download="<?php echo $sound['data']; ?>.wav">WAV</a>
-                                </li>
-                		    	<li>
-                		    	    <a href="<?php echo Asset::get_file($sound['data'].'.ogg','sound'); ?>" download="<?php echo $sound['data']; ?>.ogg">OGG</a>
+                		    	    <a href="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.ogg">OGG</a>
                                 </li>
 	                	    </ul>
                 	    </div>

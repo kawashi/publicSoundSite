@@ -40,8 +40,10 @@
                     </div>
             
                     <div class="item data">    
-                        <?php echo Form::label('Data','data'); ?>
-                        <?php echo Form::file('data'); ?>
+                        <?php echo Form::label('Data (OGG MP3 WAV)','data'); ?>
+                        <?php echo Form::file('data',array('class' => 'file')); ?>
+                        <?php //echo Form::file('data',array('class' => 'file')); ?>
+                        <?php //echo Form::file('data',array('class' => 'file')); ?>
                     </div>
                                     
                     <div class="submit">

@@ -10,6 +10,9 @@ form{
     margin-top: 20px;
 }
 
+
+/* form各項目 */
+
 input{
     width: 100%;
 }
@@ -23,7 +26,12 @@ input{
     margin-top: 50px;
 }
 
+/* アップロード成功時テキスト */
 .success{
     font-size: 20px;
     margin: 25px 0;
+}
+
+.file{
+    margin-top: 15px;
 }

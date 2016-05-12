@@ -1,9 +1,9 @@
 /* ボディ */
 body{
     /* 背景画像は著作権を考えないと捕まっちゃうよ!! */
-    background-image: url(../img/back.jpg);
+    /*background-image: url(../img/back.jpg);
     background-attachment: fixed;
-    background-position: center;
+    background-position: center;*/
 }
 
 /* ページタイトル */
