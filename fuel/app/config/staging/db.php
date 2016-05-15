@@ -6,9 +6,9 @@
 return array(
 	'default' => array(
 		'connection'  => array(
-			'dsn'        => 'mysql:host=localhost;dbname=fuel_staging',
-			'username'   => 'fuel_app',
-			'password'   => 'super_secret_password',
+			'dsn'        => 'mysql:host=mysql.hostinger.jp;dbname=u415850730_test',
+			'username'   => 'u415850730_test',
+			'password'   => 'yakisobameron',
 		),
 	),
 );

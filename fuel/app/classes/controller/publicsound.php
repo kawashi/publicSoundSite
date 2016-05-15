@@ -1,16 +1,18 @@
 <?php
 
-class Controller_Publicsound extends Controller_Template
+class Controller_Publicsound extends Controller
 {
 
 	public function action_show()
 	{
         Asset::add_path('assets/sound','sound');
         
-        $sounds = Model_Publicsound::find('all');
-        $view   = View::forge('publicsound/show');
-        
-        $view->sounds = $sounds;
+        $sounds   = Model_Publicsound::find('all');
+        $historys = Model_History::find('all');
+        $view     = View::forge('publicsound/show');
+    
+        $view->sounds   = $sounds;
+        $view->historys = $historys;
         
 		return $view;
 	}
@@ -22,55 +24,47 @@ class Controller_Publicsound extends Controller_Template
     
     public function action_create()
     {
-        //ファイル名取得
+        //バリデーション追加しとく
+        
+        //ファイル名取得し、楽曲ディレクトリの作成
         $files    = Upload::get_files();
         $dataname = $files[0]["name"];
         $dataname = substr($dataname,0,-4);
-        
-        //楽曲のディレクトリの作成
         File::create_dir(DOCROOT.'/assets/sound', $dataname);
         
         //アップロードされたファイルの設定(作成されたディレクトリ名を指定)
-        $config = array('path' => DOCROOT.'/assets/sound/'.$dataname);
+        $config = array(
+            'path'          => DOCROOT.'/assets/sound/'.$dataname,
+            'ext_whitelist' => array(/*'wav',*/'ogg','mp3'),
+        );
         Upload::process($config);
         
-        //モデルのインスタンス取得
+        //楽曲データ
         $sound = Model_Publicsound::forge();
-        
-        //カラムにデータを代入
         $sound->title   = Input::post('title');
         $sound->genre   = Input::post('genre');
         $sound->message = Input::post('message');
         $sound->data    = $dataname;
         
-        //以下の処理が通らなかったら作成したディレクトリの削除
-        //また、どちらか片方の処理に失敗したら両方失敗にする
+        //変更履歴
+        $history = Model_History::forge();
+        $history->date    = Date::time()->format("%Y-%m-%d",true);
+        $history->message = "楽曲「".Input::post('title')."」を追加しました。";
+        
+        //DBへのデータ登録とファイルの保存の両方が成功
         Upload::save();
-        $sound->save();    
+        if( $sound->save() && $history->save() && Upload::get_errors() == FALSE ){
+            Response::redirect('publicsoundsite/public/index.php/publicsound/new?flag=success');  
+        }else{
+            File::delete_dir(DOCROOT.'/assets/sound/'.$dataname);
+            Response::redirect('publicsoundsite/public/index.php/publicsound/new?flag=error');  
+        }
         
-        //変更履歴に追加(まずはモデル作れ)
-        
-        //リダイレクト(失敗したらflagを失敗にする)
-        Response::redirect('publicsoundsite/public/index.php/publicsound/new?flag=success');  
     }
     
     /*
      ↓デバッグ用アクション
     */
-    /* テストデータを挿入 */
-    public function action_test()
-    {
-        /* テストレコード挿入 */
-        $test = Model_Publicsound::forge();
-        $test->title = "Max Burning!";
-        $test->data  = "test";
-        $test->genre = "KAC最優秀楽曲";
-        $test->message = "バスドラムの響きが見所です！！";
-        $test->save();
-                
-        Response::redirect('index.php/publicsound/show');
-    }
-
     /* 指定した番号のレコードを削除 */
     public function action_delete($no)
     {
@@ -79,5 +73,6 @@ class Controller_Publicsound extends Controller_Template
         
         Response::redirect('index.php/publicsound/show');
     }
+    
     
 }

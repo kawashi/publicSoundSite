@@ -16,12 +16,16 @@
             <div class="uploader col-md-6 col-md-offset-3">
                 <h1 class="text-center">We can change the world!</h1>
                 
-                <?php if( Input::get('flag') ): ?>
+                <?php if( Input::get('flag') == 'success' ): ?>
                     <div class="success bg-success text-success text-center">
                         <p>Success</p>
                     </div>
+                <?php elseif(Input::get('flag') == 'error' ): ?>
+                    <div class="success bg-danger text-danger text-center">
+                        <p>Error</p>
+                    </div>
                 <?php endif; ?>
-                
+                                
                 <?php echo Form::open(array('action'=>'publicsound/create','enctype'=>'multipart/form-data','method'=>'post')); ?>
                 
                     <div class="item title">
@@ -41,8 +45,8 @@
             
                     <div class="item data">    
                         <?php echo Form::label('Data (OGG MP3 WAV)','data'); ?>
-                        <?php echo Form::file('data',array('class' => 'file')); ?>
-                        <?php //echo Form::file('data',array('class' => 'file')); ?>
+                        <?php echo Form::file('data1',array('class' => 'file')); ?>
+                        <?php echo Form::file('data2',array('class' => 'file')); ?>
                         <?php //echo Form::file('data',array('class' => 'file')); ?>
                     </div>
                                     

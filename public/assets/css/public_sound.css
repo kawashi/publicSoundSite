@@ -22,6 +22,13 @@ body{
     border: solid 2px #000;
     overflow-y: scroll;
     overflow-x: hidden;
+    padding: 20px 0;
+}
+
+.history_box p{
+    text-indent: 30px;
+    font-size: 20px;
+    line-height: 20px;
 }
 
 /* メインコンテンツ */

@@ -18,7 +18,12 @@
         </div>
         <div class="update_history">
             <h1>更新履歴</h1>    
-            <div class="history_box"></div>
+            <div class="history_box text-left">
+                <?php foreach( $historys as $history ): ?>
+                <p><?php echo $history["date"]; ?>：<?php echo $history["message"]; ?></p>
+                
+                <?php endforeach; ?>
+            </div>
         </div>
         <div class="main_contents">
             <h1>楽曲一覧</h1>
@@ -36,9 +41,11 @@
                 </div>
                 <div class="right_box col-md-6">
                     <div class="play">
-                    <!-- 本当はいくつかの拡張子のファイルを用意する -->
-                    
-                    <audio src="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" controls></audio>
+                        <audio preload="metadata" controls>
+                            <source src="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" type="audio/mpeg"></source>
+                            <source src="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" type="audio/ogg"></source>
+                            <p>ブラウザ非対応</p>
+                        </audio>
                     </div>
                     <div class="downloads row">
                         <div class="btn-group col-md-12 downloads" role="group">
