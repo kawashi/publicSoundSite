@@ -10,6 +10,8 @@ class Model_Publicsound extends \Orm\Model
 		'message',
 		'created_at',
 		'updated_at',
+        'play_count',
+        'dl_count'
 	);
 
 	protected static $_observers = array(

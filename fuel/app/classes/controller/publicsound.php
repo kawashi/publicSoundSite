@@ -10,7 +10,7 @@ class Controller_Publicsound extends Controller
         $sounds   = Model_Publicsound::find('all');
         $historys = Model_History::find('all');
         $view     = View::forge('publicsound/show');
-    
+        
         $view->sounds   = $sounds;
         $view->historys = $historys;
         
@@ -60,6 +60,32 @@ class Controller_Publicsound extends Controller
             Response::redirect('publicsoundsite/public/index.php/publicsound/new?flag=error');  
         }
         
+    }
+    
+    /* 再生数カウント */
+    public function action_play_count(){
+        // 曲名の _ をスペースに変換
+        $sound_name = str_replace("_"," ",Input::get('name'));
+        
+        // 再生数カウント
+        $sound = Model_Publicsound::query()->where('data',$sound_name)->get_one();
+        $sound->play_count += 1;
+        $sound->save();
+        
+        return $sound->play_count;
+    }
+    
+    /* ダウンロード数カウント */
+    public function action_dl_count(){
+        // 曲名の _ をスペースに変換
+        $sound_name = str_replace("_"," ",Input::get('name'));
+        
+        // 再生数カウント
+        $sound = Model_Publicsound::query()->where('data',$sound_name)->get_one();
+        $sound->dl_count += 1;
+        $sound->save();
+        
+        return $sound->dl_count;
     }
     
     /*

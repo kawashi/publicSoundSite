@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>楽曲配布サイト</title>
-    <?php echo Asset::CSS('public_sound.css'); ?>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <?php echo Asset::CSS('public_sound.css'); ?>
+    <?php echo Asset::JS('show.js'); ?>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body id="test">
     <div class="container text-center">
         <div class="page_title">
             <h1>フリー音楽配布サイト</h1>
@@ -21,7 +23,6 @@
             <div class="history_box text-left">
                 <?php foreach( $historys as $history ): ?>
                 <p><?php echo $history["date"]; ?>：<?php echo $history["message"]; ?></p>
-                
                 <?php endforeach; ?>
             </div>
         </div>
@@ -41,7 +42,7 @@
                 </div>
                 <div class="right_box col-md-6">
                     <div class="play">
-                        <audio preload="metadata" controls>
+                        <audio preload="metadata"  class="audio" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>" controls>
                             <source src="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" type="audio/mpeg"></source>
                             <source src="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" type="audio/ogg"></source>
                             <p>ブラウザ非対応</p>
@@ -107,7 +108,6 @@
     <footer class="text-center">著作権はかわしぃに帰属</footer>
             
     <!-- Bootstrap および　JQuery -->
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
