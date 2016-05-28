@@ -26,7 +26,7 @@
                     </div>
                 <?php endif; ?>
                                 
-                <?php echo Form::open(array('action'=>'publicsound/create','enctype'=>'multipart/form-data','method'=>'post')); ?>
+                <?php echo Form::open(array('action'=>'publicsound/create',/*'enctype'=>'multipart/form-data',*/'method'=>'post')); ?>
                 
                     <div class="item title">
                         <?php echo Form::label('Title','title'); ?>
@@ -38,18 +38,25 @@
                         <?php echo Form::input('genre',''); ?>
                     </div>
                 
+                    <div class="item name">
+                        <?php echo Form::label('DataName','name'); ?>
+                        <?php echo Form::input('name',''); ?>
+                    </div>
+                   
                     <div class="item message">
                         <?php echo Form::label('Message','message'); ?>
                         <?php echo Form::textarea('message',''); ?>
                     </div>
             
+                    <!-- サーバ上でアップロードがうまくいかないので保留
                     <div class="item data">    
                         <?php echo Form::label('Data (OGG MP3 WAV)','data'); ?>
                         <?php echo Form::file('data1',array('class' => 'file')); ?>
                         <?php echo Form::file('data2',array('class' => 'file')); ?>
                         <?php //echo Form::file('data',array('class' => 'file')); ?>
                     </div>
-                                    
+                    -->
+                                                
                     <div class="submit">
                         <?php echo Form::submit('submit','Upload Now!',array('class' => 'btn btn-primary')); ?>
                     </div>

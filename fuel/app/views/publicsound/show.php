@@ -30,7 +30,7 @@
             <h1>楽曲一覧</h1>
             
             <?php foreach( $sounds as $sound ): ?>
-            <div class="sound row">
+            <div class="sound row" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">
                 <div class="left_box col-md-6">
                     <div class="title">
                         <!--<p>Drop NAMIDA on E.A.R.T.H</p>-->
@@ -55,13 +55,10 @@
 		                    </button>
                 	    	<ul class="dropdown-menu right" role="menu">
 			                    <li>
-			                        <a href="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.mp3">MP3</a>
+			                        <a href="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.mp3" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">MP3</a>
 			                    </li>
-                		    	<!--<li>
-                		    	    <a href="<?php echo Asset::get_file($sound['data'].'.wav','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.wav">WAV</a>
-                                </li>-->
                 		    	<li>
-                		    	    <a href="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.ogg">OGG</a>
+                		    	    <a href="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.ogg" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">OGG</a>
                                 </li>
 	                	    </ul>
                 	    </div>
@@ -70,9 +67,26 @@
                 <div class="message col-md-12">
                     <?php echo nl2br($sound["message"]); ?>
                 </div>
+                <div class="comment col-md-12" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <?php echo Form::textarea('message','',array('class'=>'comment_form form-control')); ?>
+                        </div>
+                            <?php  echo Form::submit('submit','Comment',array('class'=>'btn btn-primary comment_submit col-md-2')); ?>
+                        </div>
+                    </div>
+                <div class="comment_list col-md-12">
+                    <h2>コメント</h2>
+                    <?php foreach($comments as $comment): ?>
+                        <?php if( $comment['sound_id'] == $sound['id'] ): ?>
+                            <div class="message">
+                                <p><?php echo nl2br($comment['message']); ?></p>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
-            <?php endforeach; ?>
-            
+            <?php endforeach; ?>    
         </div>   
     </div>  
     
