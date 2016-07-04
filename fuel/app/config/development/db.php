@@ -6,9 +6,21 @@
 return array(
 	'default' => array(
 		'connection'  => array(
-			'dsn'        => 'mysql:host=localhost;dbname=public_sound',
+			/* かわしぃ：自宅 windows vista の設定 */
+			// 'dsn'        => 'mysql:host=localhost;dbname=public_sound',
+			// 'username'   => 'kawashi',
+			// 'password'   => 'yakisobameron',
+
+
+			/* かわしぃ：会社 MacBook Pro の設定 */
+			'dsn'        => 'mysql:host=localhost;dbname=public_sound;unix_socket=/tmp/mysql.sock',
 			'username'   => 'kawashi',
-			'password'   => 'yakisobameron',
+			'password'   => 'kawashi',
+
+			/* かわしぃ：Xサーバの設定 */
+			// 'dsn'        => 'mysql:host=localhost;dbname=public_sound',
+			// 'username'   => 'kawashi',
+			// 'password'   => 'yakisobameron',
 		),
 	),
 );
