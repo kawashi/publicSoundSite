@@ -7,11 +7,13 @@ class Controller_Publicsound extends Controller
     {
         Asset::add_path('assets/sound','sound');
 
+        // レコード・ビュー取得
         $sounds   = Model_Publicsound::find('all');
-        $historys = Model_History::find('all');
-				$comments = Model_Comment::find('all');
+        $historys = Model_History::query()->order_by('created_at', 'desc')->get();
+        $comments = Model_Comment::find('all');
         $view     = View::forge('publicsound/show');
 
+        // ビューに変数追加
         $view->sounds   = $sounds;
         $view->historys = $historys;
         $view->comments = $comments;
