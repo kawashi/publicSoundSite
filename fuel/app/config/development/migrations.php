@@ -1,11 +1,11 @@
 <?php
-return array (
+return array(
   'version' => 
-  array (
+  array(
     'app' => 
-    array (
+    array(
       'default' => 
-      array (
+      array(
         0 => '001_create_publicsounds',
         1 => '002_create_histories',
         2 => '003_add_counter_to_sounds',
@@ -13,10 +13,10 @@ return array (
       ),
     ),
     'module' => 
-    array (
+    array(
     ),
     'package' => 
-    array (
+    array(
     ),
   ),
   'folder' => 'migrations/',
