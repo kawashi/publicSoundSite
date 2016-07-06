@@ -39,8 +39,8 @@
                             <p> <?php echo $sound["genre"]; ?> </p>
                         </div>
                     </div>
-                    <?php /* ダウンロードボタン */ ?>
                     <div class="right_box col-md-6">
+                        <?php /* 楽曲再生 */ ?>
                         <div class="play">
                             <audio preload="metadata"  class="audio" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>" controls>
                                 <source src="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" type="audio/mpeg"></source>
@@ -48,18 +48,19 @@
                                 <p>ブラウザ非対応</p>
                             </audio>
                         </div>
+                        <?php /* ダウンロードボタン */ ?>
                         <div class="downloads row">
                             <div class="btn-group col-md-12 downloads" role="group">
-		                        <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false">Download<span class="caret"></span></button>
-                    	    	<ul class="dropdown-menu right" role="menu">
-			                          <li>
-			                              <a href="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.mp3" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">MP3</a>
-			                          </li>
-                    		      	<li>
-                    		    	      <a href="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.ogg" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">OGG</a>
-                                </li>
-	                    	    </ul>
-                    	      </div>
+                                <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false">Download<span class="caret"></span></button>
+                                <ul class="dropdown-menu right" role="menu">
+                                    <li>
+                                        <a href="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.mp3" data-name="<?1php echo str_replace(' ','_',$sound['data']); ?>">MP3</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.ogg" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">OGG</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <?php /* 楽曲説明文 */ ?>
@@ -69,10 +70,20 @@
                     <?php /* コメント入力欄 */ ?>
                     <div class="comment col-md-12" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">
                         <div class="form-group">
-                            <div class="col-md-10">
+                            <div class="col-md-8">
                                 <?php echo Form::textarea('message','',array('class'=>'comment_form form-control')); ?>
                             </div>
                             <?php  echo Form::submit('submit','Comment',array('class'=>'btn btn-primary comment_submit col-md-2')); ?>
+                        </div>
+                        <div class = "col-md-2 row view_count">
+                            <div class = "col-xs-6">
+                                <p class = "count"><?php echo $sound['play_count'] ?></p>
+                                <p>再生数</p>
+                            </div>
+                            <div class = "col-xs-6">
+                                <p class = "count"><?php echo $sound['dl_count'] ?></p>
+                                <p>DL数</p>
+                            </div>
                         </div>
                     </div>
                     <?php /* コメント表示 */ ?>
