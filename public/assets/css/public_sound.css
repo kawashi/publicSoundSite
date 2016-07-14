@@ -26,9 +26,10 @@ body{
 }
 
 .history_box p{
-    text-indent: 30px;
+    /* text-indent: 30px; */
+    margin: 0 30px;
     font-size: 20px;
-    line-height: 20px;
+    line-height: 25px;
 }
 
 /* メインコンテンツ */
@@ -57,6 +58,7 @@ body{
 .sound .view_count{
     margin: 0;
     margin-top: -20px;
+    white-space:    nowrap;
 }
 
 .sound .view_count .count{
@@ -91,7 +93,7 @@ body{
     margin-top: 30px;
 }
 
-.sound .comment_list .message{
+.sound .comment_list .message p{
     padding: 5px 0;
     font-size: 22px;
     border-bottom: 1px solid #e5e5e5;
