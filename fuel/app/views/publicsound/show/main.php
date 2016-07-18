@@ -6,7 +6,7 @@
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <?php echo Asset::CSS('public_sound.css'); ?>
-    <?php echo Asset::JS('show.js'); ?>
+    <?php echo Asset::JS('show-min.js'); ?>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -40,6 +40,7 @@
             <?php foreach( $sounds as $sound ): ?>
                 <?php $sound_id = 100; ?>
                 <div class="sound row" data-id="<?php echo $sound["id"]; ?>">
+                   
                     <?php /* 曲名・ジャンル名表示 */ ?>
                     <div class="left_box col-md-6">
                         <div class="title">
@@ -50,6 +51,7 @@
                         </div>
                     </div>
                     <div class="right_box col-md-6">
+                       
                         <?php /* 楽曲再生 */ ?>
                         <div class="play">
                             <audio preload="metadata"  class="audio" data-id="<?php echo $sound["id"]; ?>" controls>
@@ -58,6 +60,7 @@
                                 <p>ブラウザ非対応</p>
                             </audio>
                         </div>
+                        
                         <?php /* ダウンロードボタン */ ?>
                         <div class="downloads row">
                             <div class="btn-group col-md-12 downloads" role="group">
@@ -73,10 +76,12 @@
                             </div>
                         </div>
                     </div>
+                    
                     <?php /* 楽曲説明文 */ ?>
                     <div class="message col-md-12">
                         <?php echo nl2br($sound["message"]); ?>
                     </div>
+                    
                     <div class="comment col-md-12" data-id="<?php echo $sound["id"]; ?>">
                         <?php /* コメント入力欄 */ ?>
                         <div class="form-group">
@@ -98,24 +103,26 @@
                             </div>
                         </div>
                     </div>
+                    
                     <?php /* コメント表示 */ ?>
                     <div class="comment_list col-md-12">
                         <h2>コメント</h2>
                         <div class="message text-left" id="comments">
-                            <?php $i = 0; ?>
-                            <?php foreach($comments as $comment): ?>
-                                <?php if( $comment['sound_id'] == $sound['id'] ): ?>
-                                    <?php $i++; ?>
-                                    <?php if($i > 3): ?>
-                                        <button class="btn btn-default btn-block all-comment" id="show_comment_button" data-toggle="modal" data-target="#comment">コメント一覧</button>
-                                        <?php echo View::forge('publicsound/show/comment_modal', array("comments" => $comments, "sound" => $sound))->render();
-                                              break; 
-                                        ?>
-                                    <?php else: ?>
-                                        <p class="comment_text"><?php echo nl2br($comment['message']); ?></p>
-                                    <?php endif; ?>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
+                            <?php 
+                                $i = 0;
+                                foreach($comments as $comment):
+                                    if( $comment['sound_id'] == $sound['id'] ):
+                                        $i++;
+                                        if($i < 3):
+                                            echo '<p class="comment_text">'.nl2br($comment["message"]).'</p>';
+                                        else:
+                                            echo '<button class="btn btn-default btn-block all-comment" id="show_comment_button" data-toggle="modal" data-target="#comment">コメント一覧</button>';
+                                            echo View::forge('publicsound/show/comment_modal', array("comments" => $comments, "sound" => $sound))->render();
+                                            break;
+                                        endif;
+                                    endif;
+                                endforeach;
+                            ?>
                         </div>
                     </div>
                 </div>
