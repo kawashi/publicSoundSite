@@ -81,16 +81,24 @@ class Controller_Publicsound extends Controller
 
     /* コメント登録 */
     public function action_send_comment(){
-        // 曲名の _ をスペースに変換
-        $sound_name = str_replace("_"," ",Input::get('sound_name'));
-        $sound      = Model_Publicsound::query()->where('data',$sound_name)->get_one();
-
+        $sound = Model_Publicsound::query()->where('id', Input::get('data_id'))->get_one();
+        
         //　コメント登録
         $comment = Model_Comment::forge();
         $comment->sound_id = $sound->id;
         $comment->message  = Input::get('comment');
         $comment->date     = date('Y/m/t');
         $comment->save();
+        
+        // コメント数更新
+        $sound->comment_count += 1;
+        $sound->save();
+    }
+    
+    /* コメント数取得 */
+    public function action_get_comment_count(){
+        $sound = Model_Publicsound::query()->where('id', Input::get('data_id'))->get_one();
+        return $sound->comment_count;
     }
 
     /* 再生数カウント */
@@ -113,9 +121,9 @@ class Controller_Publicsound extends Controller
         return $sound->dl_count;
     }
 
-    /*
-     ↓デバッグ用アクション
-    */
+    
+// --- デバッグ用アクション ---------
+
     /* 指定した番号のレコードを削除 */
     public function action_delete($no)
     {
@@ -123,6 +131,17 @@ class Controller_Publicsound extends Controller
         $test->delete();
 
         Response::redirect('index.php/publicsound/show');
+    }
+    
+    /* コメントの総数を取得 */
+    public function action_calc_comment_count()
+    {
+        $sounds= Model_Publicsound::find('all');
+        foreach($sounds as $sound){
+            $count = Model_Comment::query()->where('sound_id', $sound->id)->count();
+            $sound->comment_count = $count;
+            $sound->save();
+        }
     }
 
 
