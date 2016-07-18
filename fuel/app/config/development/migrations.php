@@ -10,6 +10,7 @@ return array(
         1 => '002_create_histories',
         2 => '003_add_counter_to_sounds',
         3 => '004_create_comments',
+        4 => '005_add_comment_count_to_sounds',
       ),
     ),
     'module' => 

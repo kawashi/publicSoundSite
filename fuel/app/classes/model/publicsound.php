@@ -11,7 +11,8 @@ class Model_Publicsound extends \Orm\Model
 		'created_at',
 		'updated_at',
         'play_count',
-        'dl_count'
+        'dl_count',
+        'comment_count'
 	);
 
 	protected static $_observers = array(
