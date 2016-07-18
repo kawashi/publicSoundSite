@@ -26,10 +26,20 @@
                 <?php endforeach; ?>
             </div>
         </div>
+        
+        <?php
+            // TODO: 用リファクタ必要性
+            // ・each はタグ前か後か
+            // ・PHP コードはもっと短く出来ないか(ヘルパーや省略記法等)
+            // ・html を分割する
+            // ・クラス名 ID は適切か
+            // ・とりあえずはコメントが正常に表示出来れば公開出来るが、終わったらすぐに手を付ける
+        ?>
         <div class="main_contents">
             <h1>楽曲一覧</h1>
             <?php foreach( $sounds as $sound ): ?>
-                <div class="sound row" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">
+                <?php $sound_id = 100; ?>
+                <div class="sound row" data-id="<?php echo $sound["id"]; ?>">
                     <?php /* 曲名・ジャンル名表示 */ ?>
                     <div class="left_box col-md-6">
                         <div class="title">
@@ -42,7 +52,7 @@
                     <div class="right_box col-md-6">
                         <?php /* 楽曲再生 */ ?>
                         <div class="play">
-                            <audio preload="metadata"  class="audio" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>" controls>
+                            <audio preload="metadata"  class="audio" data-id="<?php echo $sound["id"]; ?>" controls>
                                 <source src="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" type="audio/mpeg"></source>
                                 <source src="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" type="audio/ogg"></source>
                                 <p>ブラウザ非対応</p>
@@ -54,10 +64,10 @@
                                 <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false">Download<span class="caret"></span></button>
                                 <ul class="dropdown-menu right" role="menu">
                                     <li>
-                                        <a href="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.mp3" data-name="<?1php echo str_replace(' ','_',$sound['data']); ?>">MP3</a>
+                                        <a href="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.mp3" data-id="<?php echo $sound["id"]; ?>" class="download-button">MP3</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.ogg" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">OGG</a>
+                                        <a href="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.ogg" data-id="<?php echo $sound["id"]; ?>" class="download-button">OGG</a>
                                     </li>
                                 </ul>
                             </div>
@@ -67,14 +77,16 @@
                     <div class="message col-md-12">
                         <?php echo nl2br($sound["message"]); ?>
                     </div>
-                    <?php /* コメント入力欄 */ ?>
-                    <div class="comment col-md-12" data-name="<?php echo str_replace(' ','_',$sound['data']); ?>">
+                    <div class="comment col-md-12" data-id="<?php echo $sound["id"]; ?>">
+                        <?php /* コメント入力欄 */ ?>
                         <div class="form-group">
                             <div class="col-md-8">
                                 <?php echo Form::textarea('message','',array('class'=>'comment_form form-control')); ?>
                             </div>
                             <?php  echo Form::submit('submit','Comment',array('class'=>'btn btn-primary comment_submit col-md-2')); ?>
                         </div>
+                        
+                        <?php /* 再生数・DL数表示 */ ?>
                         <div class = "col-md-2 row view_count">
                             <div class = "col-xs-6">
                                 <p class = "count"><?php echo $sound['play_count'] ?></p>
@@ -89,13 +101,22 @@
                     <?php /* コメント表示 */ ?>
                     <div class="comment_list col-md-12">
                         <h2>コメント</h2>
-                        <?php foreach($comments as $comment): ?>
-                            <?php if( $comment['sound_id'] == $sound['id'] ): ?>
-                                <div class="message">
-                                    <p><?php echo nl2br($comment['message']); ?></p>
-                                </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
+                        <div class="message text-left" id="comments">
+                            <?php $i = 0; ?>
+                            <?php foreach($comments as $comment): ?>
+                                <?php if( $comment['sound_id'] == $sound['id'] ): ?>
+                                    <?php $i++; ?>
+                                    <?php if($i > 3): ?>
+                                        <button class="btn btn-default btn-block all-comment" id="show_comment_button" data-toggle="modal" data-target="#comment">コメント一覧</button>
+                                        <?php echo View::forge('publicsound/show/comment_modal', array("comments" => $comments, "sound" => $sound))->render();
+                                              break; 
+                                        ?>
+                                    <?php else: ?>
+                                        <p class="comment_text"><?php echo nl2br($comment['message']); ?></p>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>

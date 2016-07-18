@@ -11,13 +11,18 @@ class Controller_Publicsound extends Controller
         $sounds   = Model_Publicsound::find('all');
         $historys = Model_History::query()->order_by('created_at', 'desc')->get();
         $comments = Model_Comment::find('all');
-        $view     = View::forge('publicsound/show');
+        $view     = View::forge('publicsound/show/main');
 
         // ビューに変数追加
-        $view->sounds   = $sounds;
-        $view->historys = $historys;
-        $view->comments = $comments;
-
+        $view->sounds        = $sounds;
+        $view->historys      = $historys;
+        $view->comments     = $comments;
+//        $view->comment_modal = View::forge('publicsound/show/comment_modal');
+        
+//        $view->set_global('comments', $comments);
+//        $view->set_global('sound_id', 10);
+        
+        
         return $view;
     }
 
@@ -90,11 +95,8 @@ class Controller_Publicsound extends Controller
 
     /* 再生数カウント */
     public function action_play_count(){
-        // 曲名の _ をスペースに変換
-        $sound_name = str_replace("_"," ",Input::get('name'));
-
         // 再生数カウント
-        $sound = Model_Publicsound::query()->where('data',$sound_name)->get_one();
+        $sound = Model_Publicsound::query()->where('id', Input::get('id'))->get_one();
         $sound->play_count += 1;
         $sound->save();
 
@@ -103,11 +105,8 @@ class Controller_Publicsound extends Controller
 
     /* ダウンロード数カウント */
     public function action_dl_count(){
-        // 曲名の _ をスペースに変換
-        $sound_name = str_replace("_"," ",Input::get('name'));
-
         // 再生数カウント
-        $sound = Model_Publicsound::query()->where('data',$sound_name)->get_one();
+        $sound = Model_Publicsound::query()->where('id', Input::get('id'))->get_one();
         $sound->dl_count += 1;
         $sound->save();
 
