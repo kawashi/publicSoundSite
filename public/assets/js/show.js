@@ -90,10 +90,17 @@ var Comment = (function(){
     // イベントリスナー
     Comment.prototype.listener = function(){
         var self = this;
+        
+        // コメントが送信された時の処理
         this.$target.on('click', function(){
             self.send_message(self.$comment_form.val()); 
             self.show_comment(self.$comment_form.val());
             self.$comment_form.val("");
+        });
+        
+        // ctrl + enter が押されたらコメント送信
+        this.$comment_form.on('keyup', function(e){
+            if( e.ctrlKey && e.keyCode == 13) self.$target.trigger('click');
         });
     }
     
