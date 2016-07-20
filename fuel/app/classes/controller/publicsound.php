@@ -59,12 +59,13 @@ class Controller_Publicsound extends Controller
 
         //楽曲データ
         $sound = Model_Publicsound::forge();
-        $sound->title      = Input::post('title');
-        $sound->genre      = Input::post('genre');
-        $sound->message    = Input::post('message');
-        $sound->data       = Input::post('name');
-        $sound->play_count = 0;
-        $sound->dl_count   = 0;
+        $sound->title         = Input::post('title');
+        $sound->genre         = Input::post('genre');
+        $sound->message       = Input::post('message');
+        $sound->data          = Input::post('name');
+        $sound->play_count    = 0;
+        $sound->dl_count      = 0;
+        $sound->comment_count = 0;
         //$sound->data     = $dataname;
 
         //変更履歴
