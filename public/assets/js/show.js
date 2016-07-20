@@ -127,7 +127,7 @@ var Comment = (function(){
     // クッキー取得
     Comment.prototype.get_cookie = function(key){
         var cookies = document.cookie.split(";");
-        for( var i=0 ; cookies.length ; i++ ){
+        for( var i=0 ; i < cookies.length ; i++ ){
             if( cookies[i].substr(0,key.length) == key ) return cookies[i].split("=")[1];
         }
         return null;
