@@ -85,12 +85,18 @@
                     
                     <div class="comment col-md-12" data-id="<?php echo $sound["id"]; ?>">
                         <?php /* コメント入力欄 */ ?>
+                        <?php // TODO: 非常に汚いので <form> 等を入れてリファクタ ?>
                         <div class="form-group" data-id="<?php echo $sound["id"]; ?>">
                             <div class="col-md-8">
-                                <?php echo Form::textarea('message','',array('class'=>'comment_form form-control', 'placeholder' => 'Ctrl + Enter でコメント')); ?>
+                                <?php echo Form::textarea('message','',array(
+                                            'class'       =>'comment_form form-control',
+                                            'placeholder' => 'Ctrl + Enter でコメント',
+                                            'data-id'     => $sound["id"]
+                                        ));
+                                ?>
                             </div>
                             <?php  echo Form::submit('submit','コメントする',array(
-                                            'class'   => 'btn btn-primary comment_submit col-md-2',
+                                            'class'   => 'btn btn-primary comment_submit col-md-2 disabled',
                                             'data-id' => $sound["id"]
                                         )); 
                             ?>

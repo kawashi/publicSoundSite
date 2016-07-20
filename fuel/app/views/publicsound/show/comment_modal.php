@@ -6,9 +6,9 @@
             </div>
             <div class="modal-body">
                 <?php 
-                    foreach($comments as $comment){
+                    foreach($comments as $comment):
                         if( $comment['sound_id'] === $sound_id ) echo '<p class="comment_modal_text">'.nl2br($comment['message']).'</p>';
-                    }
+                    endforeach;
                 ?>
             </div>
         </div>
