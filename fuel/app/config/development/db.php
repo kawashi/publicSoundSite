@@ -18,8 +18,8 @@ return array(
 			'password'   => 'kawashi',
 
 			/* かわしぃ：Xサーバの設定 */
-			// 'dsn'        => 'mysql:host=localhost;dbname=public_sound',
-			// 'username'   => 'kawashi',
+            // 'dsn'        => 'mysql:host=mysql1406.xserver.jp;dbname=yakimeron_publicsound;unix_socket=/var/lib/mysql/mysql.sock',
+			// 'username'   => 'yakimeron_meron',
 			// 'password'   => 'yakisobameron',
 		),
 	),
