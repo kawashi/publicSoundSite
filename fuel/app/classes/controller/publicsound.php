@@ -14,14 +14,9 @@ class Controller_Publicsound extends Controller
         $view     = View::forge('publicsound/show/main');
 
         // ビューに変数追加
-        $view->sounds        = $sounds;
-        $view->historys      = $historys;
-        $view->comments     = $comments;
-//        $view->comment_modal = View::forge('publicsound/show/comment_modal');
-        
-//        $view->set_global('comments', $comments);
-//        $view->set_global('sound_id', 10);
-        
+        $view->sounds   = $sounds;
+        $view->historys = $historys;
+        $view->comments = $comments;
         
         return $view;
     }

@@ -65,7 +65,7 @@
                         <?php /* ダウンロードボタン */ ?>
                         <div class="downloads row">
                             <div class="btn-group col-md-12 downloads" role="group">
-                                <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false">Download<span class="caret"></span></button>
+                                <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false"><b>Download</b><span class="caret"></span></button>
                                 <ul class="dropdown-menu right" role="menu">
                                     <li>
                                         <a href="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.mp3" data-id="<?php echo $sound["id"]; ?>" class="download-button">MP3</a>
@@ -83,19 +83,13 @@
                         <?php echo nl2br($sound["message"]); ?>
                     </div>
                     
-                    
-                    <?php
-                        // 楽曲ID を取得
-                        // .class の data("id") から、挿入すべきコメント欄を特定
-        
-                    ?>
                     <div class="comment col-md-12" data-id="<?php echo $sound["id"]; ?>">
                         <?php /* コメント入力欄 */ ?>
                         <div class="form-group" data-id="<?php echo $sound["id"]; ?>">
                             <div class="col-md-8">
-                                <?php echo Form::textarea('message','',array('class'=>'comment_form form-control')); ?>
+                                <?php echo Form::textarea('message','',array('class'=>'comment_form form-control', 'placeholder' => 'Ctrl + Enter でコメント')); ?>
                             </div>
-                            <?php  echo Form::submit('submit','Comment',array(
+                            <?php  echo Form::submit('submit','コメントする',array(
                                             'class'   => 'btn btn-primary comment_submit col-md-2',
                                             'data-id' => $sound["id"]
                                         )); 
@@ -127,8 +121,8 @@
                                     if($i < 3):
                                         echo '<p class="comment_text">'.nl2br($comment["message"]).'</p>';
                                     else:
-                                        echo '<button class="btn btn-default btn-block all-comment show_comment_button" data-toggle="modal" data-target="#comment">コメント一覧</button>';
-                                        echo View::forge('publicsound/show/comment_modal', array("comments" => $comments, "sound" => $sound))->render();
+                                        echo '<button class="btn btn-default btn-block all-comment show_comment_button" data-toggle="modal" data-target="#comment-'.$sound["id"].'">コメント一覧</button>';
+                                        echo View::forge('publicsound/show/comment_modal', array("comments" => $comments, "sound_id" => $sound["id"]))->render();                                
                                         break;
                                     endif;
                                 endif;
