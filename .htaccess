@@ -1,6 +1,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
-    RewriteRule ^(/)?$ /publicSoundSite/public/index.php?/$1 [L]
+    # Xサーバ
+    # RewriteRule ^(/)?$ /publicSoundSite/public/index.php?/$1 [L]
+    RewriteRule ^(/)?$ /publicSoundSite/public/index.php/$1 [L]
     RewriteCond ${REQUEST_FILENAME} !-f
     RewriteCond ${REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ /publicSoundsite/public/index.php/$1 [L]
