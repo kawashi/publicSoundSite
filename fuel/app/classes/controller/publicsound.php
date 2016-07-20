@@ -2,6 +2,15 @@
 
 class Controller_Publicsound extends Controller
 {
+    
+    public function before()
+    {
+        // Cookieがなければ付与
+        if( !Cookie::get('user_id') ){
+            $user_id = hash('md5', rand());
+            Cookie::set('user_id', $user_id, 60*60*24*30);
+        }
+    }
 
     public function action_show()
     {
@@ -82,6 +91,7 @@ class Controller_Publicsound extends Controller
         $comment = Model_Comment::forge();
         $comment->sound_id = $sound->id;
         $comment->message  = Input::get('comment');
+        $comment->user_id  = Input::get('user_id');
         $comment->date     = date('Y/m/t');
         $comment->save();
         

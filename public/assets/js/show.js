@@ -80,6 +80,8 @@ var Comment = (function(){
         this.$sound_dom    = $("#sound-id-" + this.$target.data("id"));
         this.$comment_form = this.$sound_dom.find(".comment_form");
         this.data_id       = this.$target.data("id");
+        this.user_id       = this.get_cookie("user_id");
+        
         // コメント数取得
         var self = this;
         $.get('get_comment_count', {data_id: this.data_id}, function(data){
@@ -91,16 +93,18 @@ var Comment = (function(){
     Comment.prototype.listener = function(){
         var self = this;
         
-        // コメントが送信された時の処理
-        this.$target.on('click', function(){
-            self.send_message(self.$comment_form.val()); 
-            self.show_comment(self.$comment_form.val());
-            self.$comment_form.val("");
-        });
-        
         // ctrl + enter が押されたらコメント送信
         this.$comment_form.on('keyup', function(e){
             if( e.ctrlKey && e.keyCode == 13) self.$target.trigger('click');
+        });
+        
+        // コメントが送信された時の処理
+        this.$target.on('click', function(){
+            if( !self.$target.hasClass("disabled") ){
+                self.send_message(self.$comment_form.val()); 
+                self.show_comment(self.$comment_form.val());
+                self.$comment_form.val("");
+            }
         });
     }
     
@@ -108,7 +112,8 @@ var Comment = (function(){
     Comment.prototype.send_message = function(comment){
         $.get('send_comment', {
             comment: comment,
-            data_id: this.data_id
+            data_id: this.data_id,
+            user_id: this.user_id
         });
     }
     
@@ -119,6 +124,15 @@ var Comment = (function(){
         else                         this.$sound_dom.find(".show_comment_button").prev().after(comment);
     }
     
+    // クッキー取得
+    Comment.prototype.get_cookie = function(key){
+        var cookies = document.cookie.split(";");
+        for( var i=0 ; cookies.length ; i++ ){
+            if( cookies[i].substr(0,key.length) == key ) return cookies[i].split("=")[1];
+        }
+        return null;
+    }
+    
     return Comment;
 })();
 
@@ -126,6 +140,92 @@ var Comment = (function(){
 // ------ インスタンス化 ------
 $(".comment_submit").each(function(){
     new Comment(this);
+});
+
+// ------ クラス定義 -------
+var Validate = (function(){
+    // コンストラクタ
+    function Validate(target){
+        this.initialized(target);
+        this.listener();
+    }
+    
+    // 変数初期化
+    Validate.prototype.initialized = function(target){
+        this.$target    = $(target);
+        this.$sound_dom = $("#sound-id-" + this.$target.data("id"));
+        this.$submit    = this.$sound_dom.find(".comment_submit");
+        this.data_id    = this.$target.data("id");
+        
+        // バリデーションパターン
+        this.validates  = {
+            empty: "",
+            space: /( |　)/
+        }
+    }
+    
+    // イベントリスナー
+    Validate.prototype.listener = function(){
+        var self = this;
+        
+        // フォーカスあたったらバリデーション発火
+        this.$target.on('focus', function(){
+           self.$target.trigger('keyup'); 
+        });
+        
+        // フォーカス外れたらフォームの縁を元の色に戻す
+        this.$target.on('focusout', function(){
+           self.$target.parent().removeClass("has-error"); 
+        });
+        
+        // キーが上がったらバリデーション実行
+        this.$target.on('keyup', function(){
+            self.check();
+        });
+    }
+    
+    // 全てのバリデーション実行
+    Validate.prototype.check = function(){
+        // 将来増えることを見越して for..in してる
+        for( key in this.validates ){
+            this[key](this.$target.val()) ? this.valid() : this.invalid();
+        }
+    }
+        
+    // 文字が入力されているか
+    Validate.prototype.empty = function(data){
+        return data != this.validates.empty;
+    }
+    
+    // スペースだけではないか
+    Validate.prototype.space = function(data){
+        for( var i=0 ; i<data.length ; i++ ){
+            if(!data[i].match(this.validates.space)){
+                return true;  
+            }
+        }
+        return false;
+    }
+    
+    // 有効
+    Validate.prototype.valid = function(){
+        this.$submit.removeClass("disabled");
+        this.$target.parent().removeClass("has-error");
+    }
+    
+    // 無効
+    Validate.prototype.invalid = function(){
+        this.$submit.addClass("disabled");
+        this.$target.parent().addClass("has-error");
+    }
+    
+    return Validate;
+})();
+
+
+// ----- インスタンス化 -------
+$(".comment_form").each(function(){
+    new Validate(this);
 });
 
 });

@@ -9,6 +9,7 @@ class Model_Comment extends \Orm\Model
 		'date',
 		'created_at',
 		'updated_at',
+        'user_id',
 	);
 
 	protected static $_observers = array(
