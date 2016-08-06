@@ -24,17 +24,26 @@ define('DOCROOT', __DIR__.DIRECTORY_SEPARATOR);
 /**
  * Path to the application directory.
  */
+// 開発環境のディレクトリ構成
 define('APPPATH', realpath(__DIR__.'/../fuel/app/').DIRECTORY_SEPARATOR);
+// Xサーバのディレクトリ構成
+// define('APPPATH', realpath(__DIR__.'/../lib/publicsound/fuel/app/').DIRECTORY_SEPARATOR);
 
 /**
  * Path to the default packages directory.
  */
+// 開発環境のディレクトリ構成
 define('PKGPATH', realpath(__DIR__.'/../fuel/packages/').DIRECTORY_SEPARATOR);
+// Xサーバのディレクトリ構成
+// define('PKGPATH', realpath(__DIR__.'/../lib/publicsound/fuel/packages/').DIRECTORY_SEPARATOR);
 
 /**
  * The path to the framework core.
  */
+// 開発環境のディレクトリ構成
 define('COREPATH', realpath(__DIR__.'/../fuel/core/').DIRECTORY_SEPARATOR);
+// Xサーバのディレクトリ構成
+// define('COREPATH', realpath(__DIR__.'/../lib/publicsound/fuel/core/').DIRECTORY_SEPARATOR);
 
 // Get the start time and memory for use later
 defined('FUEL_START_TIME') or define('FUEL_START_TIME', microtime(true));
