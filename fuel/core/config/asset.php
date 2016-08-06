@@ -74,7 +74,10 @@ return array(
 	 *
 	 * These MUST include the trailing slash ('/')
 	 */
-	'url' => Config::get('base_url').'/public/',
+	// ローカル環境のパス
+    'url' => Config::get('base_url').'public/',
+	// Xサーバのパス
+    // 'url' => Config::get('base_url').'../',
 
 	/**
 	 * Whether to append the assets last modified timestamp to the url.
