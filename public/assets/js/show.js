@@ -88,7 +88,7 @@ var Comment = (function(){
             self.comment_count = data;
         });
     }
-    
+
     // イベントリスナー
     Comment.prototype.listener = function(){
         var self = this;
@@ -110,6 +110,7 @@ var Comment = (function(){
     
     // コメント送信
     Comment.prototype.send_message = function(comment){
+        comment = this.trim_space_and_br(comment);
         $.get('send_comment', {
             comment: comment,
             data_id: this.data_id,
@@ -117,11 +118,15 @@ var Comment = (function(){
         });
     }
     
+    // 無駄な改行と空白を削除 (utilクラスを作ってもいいかも)
+    Comment.prototype.trim_space_and_br = function(comment){
+        return comment.replace(/(^\s+|\s+$)|(^\n+|\n+$)/g, '');
+    }
+    
     // コメント表示
     Comment.prototype.show_comment = function(comment){
         var comment       = '<p class="comment_text">' + comment + '</p>';
-        if( this.comment_count < 3 ) this.$sound_dom.find(".comments").append(comment);
-        else                         this.$sound_dom.find(".show_comment_button").prev().after(comment);
+        this.$sound_dom.find(".comments").prepend(comment);
     }
     
     // クッキー取得
@@ -160,7 +165,8 @@ var Validate = (function(){
         // バリデーションパターン
         this.validates  = {
             empty: "",
-            space: /( |　)/
+            space: /( |　)/,
+            br: /\n/
         }
     }
     
@@ -201,6 +207,16 @@ var Validate = (function(){
     Validate.prototype.space = function(data){
         for( var i=0 ; i<data.length ; i++ ){
             if(!data[i].match(this.validates.space)){
+                return true;  
+            }
+        }
+        return false;
+    }
+    
+    // 改行だけではないか
+    Validate.prototype.br = function(data){
+        for( var i=0 ; i<data.length ; i++ ){
+            if(!data[i].match(this.validates.br)){
                 return true;  
             }
         }

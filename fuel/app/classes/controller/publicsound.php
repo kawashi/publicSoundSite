@@ -19,7 +19,7 @@ class Controller_Publicsound extends Controller
         // レコード・ビュー取得
         $sounds   = Model_Publicsound::find('all');
         $historys = Model_History::query()->order_by('created_at', 'desc')->get();
-        $comments = Model_Comment::find('all');
+        $comments = Model_Comment::query()->order_by('created_at', 'desc')->get();
         $view     = View::forge('publicsound/show/main');
 
         // ビューに変数追加

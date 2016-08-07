@@ -117,14 +117,16 @@
                     
                     <?php /* コメント表示 */ ?>
                     <div class="comment_list col-md-12">
-                        <h2>コメント</h2>
+                        <?php if( $sound['comment_count'] != 0 ):
+                            echo '<h2>コメント</h2>';
+                        endif; ?>
                         <div class="message text-left comments">
                             <?php 
                             $i = 0;
                             foreach($comments as $comment):
                                 if( $comment['sound_id'] == $sound['id'] ):
                                     $i++;
-                                    if($i < 3):
+                                    if($i <= 3):
                                         echo '<p class="comment_text">'.nl2br($comment["message"]).'</p>';
                                     else:
                                         echo '<button class="btn btn-default btn-block all-comment show_comment_button" data-toggle="modal" data-target="#comment-'.$sound["id"].'">コメント一覧</button>';

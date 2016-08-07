@@ -16,7 +16,8 @@ var Validate = (function(){
         // バリデーションパターン
         this.validates  = {
             empty: "",
-            space: /( |　)/
+            space: /( |　)/,
+            br: /\n/
         }
     }
     
@@ -57,6 +58,16 @@ var Validate = (function(){
     Validate.prototype.space = function(data){
         for( var i=0 ; i<data.length ; i++ ){
             if(!data[i].match(this.validates.space)){
+                return true;  
+            }
+        }
+        return false;
+    }
+    
+    // 改行だけではないか
+    Validate.prototype.br = function(data){
+        for( var i=0 ; i<data.length ; i++ ){
+            if(!data[i].match(this.validates.br)){
                 return true;  
             }
         }
