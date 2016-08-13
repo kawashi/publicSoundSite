@@ -89,14 +89,22 @@ body{
     height: 50px;
 }
 
+/* コメント一覧 */
 .sound .comment_list{
     margin-top: 30px;
 }
 
-.sound .comment_list .message p{
+.sound .comment_field{
     padding: 5px 0;
-    font-size: 22px;
     border-bottom: 1px solid #e5e5e5;
+}
+
+.sound .comment_list .comment_text{
+    font-size: 22px;
+}
+
+.sound .comment_list .comment_delete{
+    font-size: 18px;
 }
 
 /* 自己紹介 */

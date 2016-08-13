@@ -81,7 +81,7 @@ var Comment = (function(){
         this.$comment_form = this.$sound_dom.find(".comment_form");
         this.data_id       = this.$target.data("id");
         this.user_id       = this.get_cookie("user_id");
-        
+                
         // コメント数取得
         var self = this;
         $.get('get_comment_count', {data_id: this.data_id}, function(data){
@@ -102,19 +102,25 @@ var Comment = (function(){
         this.$target.on('click', function(){
             if( !self.$target.hasClass("disabled") ){
                 self.send_message(self.$comment_form.val()); 
-                self.show_comment(self.$comment_form.val());
-                self.$comment_form.val("");
+//                self.show_comment(self.$comment_form.val());
+//                self.$comment_form.val("");
             }
         });
     }
     
     // コメント送信
     Comment.prototype.send_message = function(comment){
-        comment = this.trim_space_and_br(comment);
+        var self    = this;
+        var comment = this.trim_space_and_br(comment);
+        
         $.get('send_comment', {
             comment: comment,
             data_id: this.data_id,
             user_id: this.user_id
+        },function(data){
+            self.comment_id = data;
+            self.show_comment(self.$comment_form.val());
+            self.$comment_form.val("");
         });
     }
     
@@ -125,8 +131,19 @@ var Comment = (function(){
     
     // コメント表示
     Comment.prototype.show_comment = function(comment){
-        var comment       = '<p class="comment_text">' + comment + '</p>';
+        // コメントのDOM
+        var comment = '<div class="comment_field row comment-id-' + this.comment_id + '">'
+                    +     '<div class="comment_text col-md-9">'
+                    +       '<p>' + comment + '</p>'
+                    +     '</div>'
+                    +     '<div class="comment_delete col-md-3 text-right">'
+                    +       '<a data-comment-id=' + this.comment_id + '>削除</a>'
+                    +     '</div>'
+                    + '</div>';
+        
+        // DOM
         this.$sound_dom.find(".comments").prepend(comment);
+        new CommentDelete($(".comment-id-" + this.comment_id + " .comment_delete a"));
     }
     
     // クッキー取得
@@ -147,6 +164,50 @@ $(".comment_submit").each(function(){
     new Comment(this);
 });
 
+// ----- クラス定義 ------
+var CommentDelete = (function(){
+    function CommentDelete(target){
+        this.initialized(target);
+        this.listener();
+    }
+    
+    // 変数初期化
+    CommentDelete.prototype.initialized = function(target){
+        this.$target    = $(target);
+        this.comment_id = this.$target.data("comment-id");
+        this.$comments  = $(".comment-id-" + this.comment_id);
+    }
+    
+    // イベントリスナー
+    CommentDelete.prototype.listener = function(){
+        var self = this;
+        
+        this.$target.on('click',function(){
+            self.send_delete();
+            self.show_delete();
+        });
+    }
+    
+    // コメント削除
+    CommentDelete.prototype.send_delete = function(){
+        $.get('comment_delete', { comment_id: this.comment_id });
+    }
+    
+    // コメント削除
+    CommentDelete.prototype.show_delete = function(){
+        this.$comments.each(function(){
+           this.remove(); 
+        });
+    }
+    
+    return CommentDelete;
+    
+})();
+
+// ----- インスタンス化 ----
+$(".comment_delete a").each(function(){
+   new CommentDelete(this); 
+});
 // ------ クラス定義 -------
 var Validate = (function(){
     // コンストラクタ

@@ -26,6 +26,7 @@ class Controller_Publicsound extends Controller
         $view->sounds   = $sounds;
         $view->historys = $historys;
         $view->comments = $comments;
+        $view->user_id  = Cookie::get('user_id');
         
         return $view;
     }
@@ -99,6 +100,8 @@ class Controller_Publicsound extends Controller
         // コメント数更新
         $sound->comment_count += 1;
         $sound->save();
+        
+        return $comment->id;
     }
     
     /* コメント数取得 */
@@ -127,6 +130,11 @@ class Controller_Publicsound extends Controller
         return $sound->dl_count;
     }
 
+    /* コメント削除 */
+    public function action_comment_delete(){
+        Model_Comment::find(Input::get('comment_id'))->delete();
+        return Input::get('comment_id');
+    }
     
 // --- デバッグ用アクション ---------
 

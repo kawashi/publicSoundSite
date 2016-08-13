@@ -126,11 +126,20 @@
                             foreach($comments as $comment):
                                 if( $comment['sound_id'] == $sound['id'] ):
                                     $i++;
-                                    if($i <= 3):
-                                        echo '<p class="comment_text">'.nl2br($comment["message"]).'</p>';
-                                    else:
+                                    if($i <= 3): ?>
+                                        <div class="comment_field row comment-id-<?php echo $comment["id"]; ?>">
+                                            <div class="comment_text col-md-9">
+                                                <p><?php echo nl2br($comment["message"]); ?></p>
+                                            </div>
+                                            <?php if(Cookie::get('user_id') == $comment["user_id"]): ?>
+                                                <div class="comment_delete col-md-3 text-right">
+                                                    <a data-comment-id="<?php echo $comment["id"]; ?>">削除</a>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php else:
                                         echo '<button class="btn btn-default btn-block all-comment show_comment_button" data-toggle="modal" data-target="#comment-'.$sound["id"].'">コメント一覧</button>';
-                                        echo View::forge('publicsound/show/comment_modal', array("comments" => $comments, "sound_id" => $sound["id"]))->render();                                
+                                        echo View::forge('publicsound/show/comment_modal', array("comments" => $comments, "sound_id" => $sound["id"]))->render();          
                                         break;
                                     endif;
                                 endif;
