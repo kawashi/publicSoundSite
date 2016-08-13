@@ -112,21 +112,21 @@ var Comment = (function(){
     Comment.prototype.send_message = function(comment){
         var self    = this;
         var comment = this.trim_space_and_br(comment);
-        
+
         $.get('send_comment', {
             comment: comment,
             data_id: this.data_id,
             user_id: this.user_id
         },function(data){
             self.comment_id = data;
-            self.show_comment(self.$comment_form.val());
+            self.show_comment(comment);
             self.$comment_form.val("");
         });
     }
     
     // 無駄な改行と空白を削除 (utilクラスを作ってもいいかも)
     Comment.prototype.trim_space_and_br = function(comment){
-        return comment.replace(/(^\s+|\s+$)|(^\n+|\n+$)/g, '');
+        return comment.replace(/(^\s+|\s+$)|(^\n+|\n+$)|(^　+|　+$)/g, '');
     }
     
     // コメント表示
@@ -226,8 +226,7 @@ var Validate = (function(){
         // バリデーションパターン
         this.validates  = {
             empty: "",
-            space: /( |　)/,
-            br: /\n/
+            invalid_str: /( |　|\n)/
         }
     }
     
@@ -264,20 +263,10 @@ var Validate = (function(){
         return data != this.validates.empty;
     }
     
-    // スペースだけではないか
-    Validate.prototype.space = function(data){
+    // 禁止文字だけで構成されていないか
+    Validate.prototype.invalid_str = function(data){
         for( var i=0 ; i<data.length ; i++ ){
-            if(!data[i].match(this.validates.space)){
-                return true;  
-            }
-        }
-        return false;
-    }
-    
-    // 改行だけではないか
-    Validate.prototype.br = function(data){
-        for( var i=0 ; i<data.length ; i++ ){
-            if(!data[i].match(this.validates.br)){
+            if(!data[i].match(this.validates.invalid_str)){
                 return true;  
             }
         }

@@ -16,8 +16,7 @@ var Validate = (function(){
         // バリデーションパターン
         this.validates  = {
             empty: "",
-            space: /( |　)/,
-            br: /\n/
+            invalid_str: /( |　|\n)/
         }
     }
     
@@ -54,20 +53,10 @@ var Validate = (function(){
         return data != this.validates.empty;
     }
     
-    // スペースだけではないか
-    Validate.prototype.space = function(data){
+    // 禁止文字だけで構成されていないか
+    Validate.prototype.invalid_str = function(data){
         for( var i=0 ; i<data.length ; i++ ){
-            if(!data[i].match(this.validates.space)){
-                return true;  
-            }
-        }
-        return false;
-    }
-    
-    // 改行だけではないか
-    Validate.prototype.br = function(data){
-        for( var i=0 ; i<data.length ; i++ ){
-            if(!data[i].match(this.validates.br)){
+            if(!data[i].match(this.validates.invalid_str)){
                 return true;  
             }
         }
