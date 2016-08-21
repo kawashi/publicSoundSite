@@ -26,7 +26,7 @@
                     </div>
                 <?php endif; ?>
                                 
-                <?php echo Form::open(array('action'=>'publicsound/create',/*'enctype'=>'multipart/form-data',*/'method'=>'post')); ?>
+                <?php echo Form::open(array('action'=>'create',/*'enctype'=>'multipart/form-data',*/'method'=>'post')); ?>
                 
                     <div class="item title">
                         <?php echo Form::label('Title','title'); ?>
