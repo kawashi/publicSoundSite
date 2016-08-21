@@ -133,7 +133,7 @@
                             foreach($comments as $comment):
                                 if( $comment['sound_id'] == $sound['id'] ):
                                     $i++;
-                                    if($i <= 3): ?>
+                                    if($i <= 2): ?>
                                         <div class="comment_field row comment-id-<?php echo $comment["id"]; ?>">
                                             <div class="comment_text col-xs-9">
                                                 <p><?php echo nl2br($comment["message"]); ?></p>
@@ -145,7 +145,7 @@
                                             <?php endif; ?>
                                         </div>
                                     <?php else:
-                                        echo '<button class="btn btn-default btn-block all-comment show_comment_button" data-toggle="modal" data-target="#comment-'.$sound["id"].'">コメント一覧</button>';
+                                        echo '<button class="btn btn-default btn-block all-comment show_comment_button" data-toggle="modal" data-target="#comment-'.$sound["id"].'">全てのコメント</button>';
                                         echo View::forge('publicsound/show/comment_modal', array("comments" => $comments, "sound_id" => $sound["id"]))->render();          
                                         break;
                                     endif;
