@@ -101,9 +101,7 @@ var Comment = (function(){
         // コメントが送信された時の処理
         this.$target.on('click', function(){
             if( !self.$target.hasClass("disabled") ){
-                self.send_message(self.$comment_form.val()); 
-//                self.show_comment(self.$comment_form.val());
-//                self.$comment_form.val("");
+                self.send_message(self.$comment_form.val());
             }
         });
     }
@@ -121,6 +119,7 @@ var Comment = (function(){
             self.comment_id = data;
             self.show_comment(comment);
             self.$comment_form.val("");
+            self.$target.addClass("disabled");
         });
     }
     
@@ -208,6 +207,7 @@ var CommentDelete = (function(){
 $(".comment_delete a").each(function(){
    new CommentDelete(this); 
 });
+
 // ------ クラス定義 -------
 var Validate = (function(){
     // コンストラクタ
@@ -225,7 +225,8 @@ var Validate = (function(){
         
         // バリデーションパターン
         this.validates  = {
-            empty: "",
+            min_length: "",
+            max_length: 400,
             invalid_str: /( |　|\n)/
         }
     }
@@ -254,21 +255,25 @@ var Validate = (function(){
     Validate.prototype.check = function(){
         // 将来増えることを見越して for..in してる
         for( key in this.validates ){
-            this[key](this.$target.val()) ? this.valid() : this.invalid();
+            if(!this[key](this.$target.val(), key)) return this.invalid();
         }
+        this.valid();
     }
-        
+    
     // 文字が入力されているか
-    Validate.prototype.empty = function(data){
-        return data != this.validates.empty;
+    Validate.prototype.min_length = function(data, key){
+        return data != this.validates[key];
+    }
+    
+    // 最大文字数を超えていないか
+    Validate.prototype.max_length = function(data, key){
+        return data.length < this.validates[key];
     }
     
     // 禁止文字だけで構成されていないか
-    Validate.prototype.invalid_str = function(data){
+    Validate.prototype.invalid_str = function(data, key){
         for( var i=0 ; i<data.length ; i++ ){
-            if(!data[i].match(this.validates.invalid_str)){
-                return true;  
-            }
+            if(!data[i].match(this.validates[key])) return true;  
         }
         return false;
     }

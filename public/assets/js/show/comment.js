@@ -33,9 +33,7 @@ var Comment = (function(){
         // コメントが送信された時の処理
         this.$target.on('click', function(){
             if( !self.$target.hasClass("disabled") ){
-                self.send_message(self.$comment_form.val()); 
-//                self.show_comment(self.$comment_form.val());
-//                self.$comment_form.val("");
+                self.send_message(self.$comment_form.val());
             }
         });
     }
@@ -53,6 +51,7 @@ var Comment = (function(){
             self.comment_id = data;
             self.show_comment(comment);
             self.$comment_form.val("");
+            self.$target.addClass("disabled");
         });
     }
     
