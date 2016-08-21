@@ -77,10 +77,10 @@ class Controller_Publicsound extends Controller
         //DBへのデータ登録とファイルの保存の両方が成功
         //Upload::save();
         if( $sound->save() && $history->save() /*&& Upload::get_errors() == FALSE*/ ){
-            Response::redirect('index.php/publicsound/new?flag=success');
+            Response::redirect('new?flag=success');
         }else{
             //File::delete_dir(DOCROOT.'/assets/sound/'.$dataname);
-            Response::redirect('index.php/publicsound/new?flag=error');
+            Response::redirect('new?flag=error');
         }
 
     }
@@ -139,24 +139,24 @@ class Controller_Publicsound extends Controller
 // --- デバッグ用アクション ---------
 
     /* 指定した番号のレコードを削除 */
-    public function action_delete($no)
-    {
-        $test = Model_Publicsound::find($no);
-        $test->delete();
-
-        Response::redirect('index.php/publicsound/show');
-    }
-    
-    /* コメントの総数を取得 */
-    public function action_calc_comment_count()
-    {
-        $sounds= Model_Publicsound::find('all');
-        foreach($sounds as $sound){
-            $count = Model_Comment::query()->where('sound_id', $sound->id)->count();
-            $sound->comment_count = $count;
-            $sound->save();
-        }
-    }
+//    public function action_delete($no)
+//    {
+//        $test = Model_Publicsound::find($no);
+//        $test->delete();
+//
+//        Response::redirect('index.php/publicsound/show');
+//    }
+//    
+//    /* コメントの総数を取得 */
+//    public function action_calc_comment_count()
+//    {
+//        $sounds= Model_Publicsound::find('all');
+//        foreach($sounds as $sound){
+//            $count = Model_Comment::query()->where('sound_id', $sound->id)->count();
+//            $sound->comment_count = $count;
+//            $sound->save();
+//        }
+//    }
 
 
 }
