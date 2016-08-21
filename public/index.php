@@ -14,7 +14,10 @@
  * Set error reporting and display errors settings.  You will want to change these when in production.
  */
 error_reporting(-1);
+/* 開発環境 */
 ini_set('display_errors', 1);
+/* 本番環境 */
+// ini_set('display_errors', 0);
 
 /**
  * Website document root

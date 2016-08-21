@@ -6,9 +6,10 @@
 return array(
 	'default' => array(
 		'connection'  => array(
-			'dsn'        => 'mysql:host=localhost;dbname=fuel_prod',
-			'username'   => 'fuel_app',
-			'password'   => 'super_secret_password',
+            /* かわしぃ：Xサーバの設定 */
+            'dsn'        => 'mysql:host=mysql1406.xserver.jp;dbname=yakimeron_publicsound',
+            'username'   => 'yakimeron_meron',
+            'password'   => 'yakisobameron',
 		),
 	),
 );
