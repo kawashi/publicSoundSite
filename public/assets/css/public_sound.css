@@ -1,15 +1,37 @@
 /* ボディ */
 body{
     /* 背景画像は著作権を考えないと捕まっちゃうよ!! */
-    /*background-image: url(../img/back.jpg);
+/*
+    background-image: url(../img/back2.jpg);
     background-attachment: fixed;
-    background-position: center;*/
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-background-size: 20% auto;
+    background-size: 10% auto;
+*/
+}
+
+@media screen and (max-width: 420px){
+    .container{
+        width: 95%;
+    }
+    .page_title{
+        font-size: 29px;
+    }
 }
 
 /* ページタイトル */
 .page_title{
     margin-top: 100px;
-    font-size: 21px;
+}
+
+.page_title h1{
+    margin-bottom: 20px;
+    font-family: serif;
+}
+
+.page_title p{
+    font-size: 16px;
 }
 
 /* 更新履歴 */
@@ -40,7 +62,7 @@ body{
 .sound{
     margin-top: 100px;
     padding-bottom: 50px;
-    border-top: solid 2px #bebebe;
+    border-top: solid 2px #dbdbdb;
     border-bottom: solid 2px #bebebe;
     background-color: #efefef;
     border-radius: 10px;
@@ -101,6 +123,7 @@ body{
 
 .sound .comment_list .comment_text{
     font-size: 22px;
+    word-break:break-all;
 }
 
 .sound .comment_list .comment_delete{
@@ -110,7 +133,7 @@ body{
 /* 自己紹介 */
 .profiles{
     margin-top: 150px;
-    font-size:23px;
+    font-size:19px;
 }
 
 .profiles h2{
@@ -133,7 +156,7 @@ body{
 
 /* フッター */
 footer{
-    font-size:28px;
+    font-size:22px;
     color:#fff;
     background-color: #313131;
 
