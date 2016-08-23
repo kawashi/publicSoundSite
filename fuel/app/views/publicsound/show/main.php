@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>楽曲配布サイト</title>
+    <title>John's sound library</title>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <?php echo html_tag('link',
@@ -22,9 +22,10 @@
 <body>
     <div class="container text-center">
         <div class="page_title">
-            <h1>―　John's Sound　―</h1>
+            <h1>―　John's sound library　―</h1>
             <p>自作音楽を投稿しています。</p>
         </div>
+        
         <div class="update_history">
             <h1>更新履歴</h1>
             <div class="history_box text-left">
@@ -44,6 +45,34 @@
         ?>
         <div class="main_contents">
             <h1>楽曲一覧</h1>
+            
+            <?php /* 利用規約 */ ?>
+            <div class="panel-group terms" id="accordion1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="list-group-item" data-toggle="collapse" data-parent="#accordion1" href="#collapse11">
+                                利用規約
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse11" class="panel-collapse collapse">
+                        <div class="panel-body text-left">
+                            <p>当サイトで配布されている楽曲は、フリー素材としてゲームや動画などに利用できます。</p>
+                            <p>利用の報告は不要で(あるとうれしい)、ピッチやビットレートの変更、カットやループ位置など自由に改変でき、コンテンツの内容に制限もありません。</p>
+                            <br/>
+                            <p>ただし、</p>
+                            <p>・著作の表記は必須(どうしても難しい場合は報告をお願いします)</p>
+                            <p>・再配布は禁止</p>
+                            <p>・著作を偽ること(自分の楽曲として扱うなど)は禁止</p>
+                            <p>とさせていただきます。</p>
+                            <br/>
+                            <p>ご不明点がございましたら、Twitterなどにご連絡ください。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <?php foreach( $sounds as $sound ): ?>
                 
                 <?php /* 楽曲 */ ?>
@@ -65,6 +94,7 @@
                             <audio preload="metadata"  class="audio" data-id="<?php echo $sound["id"]; ?>" controls>
                                 <source src="<?php echo Asset::get_file($sound['data'].'.mp3','sound',$sound['data']); ?>" type="audio/mpeg"></source>
                                 <source src="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" type="audio/ogg"></source>
+                                <source src="<?php echo Asset::get_file($sound['data'].'.wav','sound',$sound['data']); ?>" type="audio/wav"></source>
                                 <p>ブラウザ非対応</p>
                             </audio>
                         </div>
@@ -79,6 +109,9 @@
                                     </li>
                                     <li>
                                         <a href="<?php echo Asset::get_file($sound['data'].'.ogg','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.ogg" data-id="<?php echo $sound["id"]; ?>" class="download-button">OGG</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo Asset::get_file($sound['data'].'.wav','sound',$sound['data']); ?>" download="<?php echo $sound['data']; ?>.wav" data-id="<?php echo $sound["id"]; ?>" class="download-button">WAV</a>
                                     </li>
                                 </ul>
                             </div>

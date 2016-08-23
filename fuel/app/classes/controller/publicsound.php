@@ -17,7 +17,7 @@ class Controller_Publicsound extends Controller
         Asset::add_path('assets/sound','sound');
 
         // レコード・ビュー取得
-        $sounds   = Model_Publicsound::find('all');
+        $sounds   = Model_Publicsound::query()->order_by('created_at', 'desc')->get();
         $historys = Model_History::query()->order_by('created_at', 'desc')->get();
         $comments = Model_Comment::query()->order_by('created_at', 'desc')->get();
         $view     = View::forge('publicsound/show/main');
@@ -32,10 +32,11 @@ class Controller_Publicsound extends Controller
     }
 
     /* 楽曲追加画面 */
-    public function action_new()
-    {
-        return View::forge('publicsound/new');
-    }
+    /* 認証付けるまではコメントアウト */
+//    public function action_new()
+//    {
+//        return View::forge('publicsound/new');
+//    }
 
     /* 楽曲追加処理 */
     public function action_create()

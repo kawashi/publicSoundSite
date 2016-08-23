@@ -28,10 +28,17 @@ body{
 .page_title h1{
     margin-bottom: 20px;
     font-family: serif;
+    font-size: 60px;
 }
 
 .page_title p{
     font-size: 16px;
+}
+
+/* 利用規約 */
+.terms{
+    margin-top: 50px;
+    margin-bottom: 100px;
 }
 
 /* 更新履歴 */
@@ -44,7 +51,7 @@ body{
     border: solid 2px #000;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 
 .history_box p{
@@ -60,7 +67,7 @@ body{
 }
 
 .sound{
-    margin-top: 100px;
+    margin-top: 50px;
     padding-bottom: 50px;
     border-top: solid 2px #dbdbdb;
     border-bottom: solid 2px #bebebe;
