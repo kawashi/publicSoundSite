@@ -2,8 +2,17 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    
+    <!-- TwitterカードAPI -->
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@k_t_mejohn" />
+    <meta name="twitter:title" content="―　John's sound library　―" />
+    <meta name="twitter:description" content="作った音楽をフリー素材として配布しています。" />
+    <meta name="twitter:image" content="https://www.john-sound.net/example.jpg" />
+
     <title>John's sound library</title>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <?php echo html_tag('link',
                         array(
@@ -13,17 +22,20 @@
                         )
                        ); ?>
     <?php echo Asset::CSS('public_sound.css', array("class" => "test")); ?>
-    <?php echo Asset::JS('show.js'); ?>
+    <?php echo Asset::JS('show-min.js'); ?>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 <body>
+    <!-- Twitterボタン -->
+    <div class="text-right"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://john-sound.net/?a=0" data-text="John's sound library" data-via="k_t_mejohn">Tweet</a></div><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
     <div class="container text-center">
         <div class="page_title">
             <h1>―　John's sound library　―</h1>
-            <p>自作音楽を投稿しています。</p>
+            <p>作った音楽をフリー素材として配布しています。</p>
         </div>
         
         <div class="update_history">
@@ -62,12 +74,16 @@
                             <p>利用の報告は不要で(あるとうれしい)、ピッチやビットレートの変更、カットやループ位置など自由に改変でき、コンテンツの内容に制限もありません。</p>
                             <br/>
                             <p>ただし、</p>
-                            <p>・著作の表記は必須(どうしても難しい場合は報告をお願いします)</p>
-                            <p>・再配布は禁止</p>
-                            <p>・著作を偽ること(自分の楽曲として扱うなど)は禁止</p>
+                            <ul>
+                                <li>著作の表記は必須(どうしても難しい場合は報告をお願いします)</li>
+                                <li>再配布は禁止</li>
+                                <li>著作を偽ること(自分の楽曲として扱うなど)は禁止</li>
+                            </ul>
                             <p>とさせていただきます。</p>
                             <br/>
-                            <p>ご不明点がございましたら、Twitterなどにご連絡ください。</p>
+                            <p>ご不明点がございましたら、<a href="https://twitter.com/k_t_mejohn">@k_t_mejohn</a> にご連絡ください。</p>
+                            <br/>
+                            <p>また、サイト内のコメントは Cookie が残っている限り<b>後から削除出来る</b>ので、気軽にコメントしてみて下さい。</p>
                         </div>
                     </div>
                 </div>
@@ -76,6 +92,7 @@
             <?php foreach( $sounds as $sound ): ?>
                 
                 <?php /* 楽曲 */ ?>
+                <a name="<?php echo $sound["id"]; ?>" class="sound-label"> </a>
                 <div class="sound row" id="sound-id-<?php echo $sound['id']; ?>" data-id="<?php echo $sound["id"]; ?>">
                    
                     <?php /* 曲名・ジャンル名表示 */ ?>
@@ -101,7 +118,7 @@
                         
                         <?php /* ダウンロードボタン */ ?>
                         <div class="downloads row">
-                            <div class="btn-group col-xs-12 downloads" role="group">
+                            <div class="btn-group col-xs-10 downloads" role="group">
                                 <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false"><b>Download</b><span class="caret"></span></button>
                                 <ul class="dropdown-menu right" role="menu">
                                     <li>
@@ -115,6 +132,17 @@
                                     </li>
                                 </ul>
                             </div>
+                            
+                            <!-- Twitterボタン -->
+                            <div class="col-xs-2 twitter-share">
+                                <?php $url = $sound["id"] != 6 ?
+                                    'https://john-sound.net?sound_id='.$sound["id"].'&a=0' : 
+                                    'https://john-sound.net/twitter-player/redirect/r_yozoranookurimono.html?sound_id=6' ;
+                                ?>
+                                <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $url; ?>" data-text="<?php echo $sound["title"]." (".$sound["genre"].")" ?>" data-via="k_t_mejohn">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                            </div>
+                            
+                            
                         </div>
                     </div>
                     
@@ -123,8 +151,8 @@
                         <?php echo nl2br($sound["message"]); ?>
                     </div>
                     
+                    <?php /* コメント入力欄 */ ?>
                     <div class="comment col-xs-12" data-id="<?php echo $sound["id"]; ?>">
-                        <?php /* コメント入力欄 */ ?>
                         <?php // TODO: 非常に汚いので <form> 等を入れてリファクタ ?>
                         <div class="form-group" data-id="<?php echo $sound["id"]; ?>">
                             <div class="col-xs-8">
@@ -136,7 +164,7 @@
                                 ?>
                             </div>
                             <?php  echo Form::submit('submit','コメントする',array(
-                                            'class'   => 'btn btn-primary comment_submit col-xs-2 disabled',
+                                            'class'   => 'btn btn-info comment_submit col-xs-2 disabled',
                                             'data-id' => $sound["id"]
                                         )); 
                             ?>
