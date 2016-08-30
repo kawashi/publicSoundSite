@@ -38,7 +38,7 @@ body{
 /* 利用規約 */
 .terms{
     margin-top: 50px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 /* 更新履歴 */
@@ -59,6 +59,11 @@ body{
     margin: 0 30px;
     font-size: 20px;
     line-height: 25px;
+}
+
+/* 広告 */
+.ninja-admax{
+    margin-top: 50px;
 }
 
 /* メインコンテンツ */

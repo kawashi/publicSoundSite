@@ -89,6 +89,12 @@
                 </div>
             </div>
             
+            <!-- admax -->
+            <div class="ninja-admax">
+                <script src="http://adm.shinobi.jp/s/394ccf8d4dae388e5eeb62d0c3930271"></script>
+            </div>
+            <!-- admax -->
+            
             <?php foreach( $sounds as $sound ): ?>
                 
                 <?php /* 楽曲 */ ?>
@@ -219,7 +225,13 @@
                 </div>
             <?php endforeach; ?>
         </div>
+    <!-- admax -->
+    <div class="ninja-admax">
+        <script src="http://adm.shinobi.jp/s/394ccf8d4dae388e5eeb62d0c3930271"></script>
     </div>
+    <!-- admax -->
+    </div>
+
     <div class="profiles text-center">
         <h1>― ジョンについて ―</h1>
         <ul class="list-unstyled">
