@@ -21,7 +21,10 @@ class Controller_Publicsound extends Controller
         $historys = Model_History::query()->order_by('created_at', 'desc')->get();
         $comments = Model_Comment::query()->order_by('created_at', 'desc')->get();
         $view     = View::forge('publicsound/show/main');
-
+        
+        // 曲順をランダムに
+        shuffle($sounds);
+        
         // ビューに変数追加
         $view->sounds   = $sounds;
         $view->historys = $historys;
