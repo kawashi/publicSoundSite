@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- TwitterカードAPI -->
+        <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+        <meta name="twitter:card" content="player" />
+        <meta name="twitter:site" content="@k_t_mejohn" />
+        <meta name="twitter:title" content="―　John's sound library　―" />
+        <meta name="twitter:description" content="drop NAMIDA on E-A-R-T-H(ドラムンベース)" />
+        <meta name="twitter:image" content="https://www.john-sound.net/dronami.jpg" />
+        <meta name="twitter:player" content="https://www.john-sound.net/twitter-player/container/c_drop_namida_on_earth.html" />
+        <meta name="twitter:player:width" content="480" />
+        <meta name="twitter:player:height" content="60" />
+        <meta name="twitter:player:stream" content="https://www.john-sound.net/assets/sound/drop NAMIDA on E-A-R-T-H/drop NAMIDA on E-A-R-T-H.mp3" />
+        <meta name="twitter:player:stream:content_type" content="audio/mpeg" />
+
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+        <title>drop NAMIDA on E-A-R-T-H</title>
+    </head>
+    <body>
+        <script>
+            // クッキー取得
+            $(function(){
+                var get_parameter = function(key){
+                    var param = location.search.substring(1).split('&');
+                    for(var i=0 ; i < param.length ; i++ ){
+                        var value = param[i].split('=');
+                        if(value[0] === key) return value[1];
+                    }
+                    return "";
+                }
+
+                sound_id = get_parameter('sound_id');
+                if(sound_id !== "") location.href = '/#' + sound_id;
+            });
+        </script>
+    </body>
+</html>

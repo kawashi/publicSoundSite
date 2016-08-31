@@ -30,7 +30,7 @@
 </head>
 <body>
     <!-- Twitterボタン -->
-    <div class="text-right"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://john-sound.net/?a=0" data-text="John's sound library" data-via="k_t_mejohn">Tweet</a></div><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <div class="text-right"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://john-sound.net/?a=0" data-text="John's sound library" data-via="k_t_mejohn">Tweet</a></div><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
     
     <div class="container text-center">
         <div class="page_title">
@@ -141,10 +141,13 @@
                             
                             <!-- Twitterボタン -->
                             <div class="col-xs-2 twitter-share">
+                                <?php // TODO: 要リファ ?>
                                 <?php $url = $sound["id"] != 6 ?
-                                    'https://john-sound.net?sound_id='.$sound["id"].'&a=0' : 
+                                    'http://john-sound.net?sound_id='.$sound["id"].'&a=0' : 
                                     'https://john-sound.net/twitter-player/redirect/r_yozoranookurimono.html?sound_id=6' ;
                                 ?>
+                                
+                                <?php if($sound["id"] == 3) $url='https://john-sound.net/twitter-player/redirect/r_drop_namida_on_earth.html?sound_id=3&a=0'; ?>
                                 <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $url; ?>" data-text="<?php echo $sound["title"]." (".$sound["genre"].")" ?>" data-via="k_t_mejohn">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                             </div>
                             
