@@ -161,7 +161,9 @@
                     </div>
                     
                     <?php /* コメント入力欄 */ ?>
+
                     <div class="comment col-xs-12" data-id="<?php echo $sound["id"]; ?>">
+                        <?php if(false): ?>
                         <?php // TODO: 非常に汚いので <form> 等を入れてリファクタ ?>
                         <div class="form-group" data-id="<?php echo $sound["id"]; ?>">
                             <div class="col-xs-8">
@@ -178,9 +180,10 @@
                                         )); 
                             ?>
                         </div>
+                    <?php endif; ?>
                         
                         <?php /* 再生数・DL数表示 */ ?>
-                        <div class = "col-xs-2 row view_count">
+                        <div class = "col-xs-12 row view_count">
                             <div class = "col-xs-6">
                                 <p class = "count"><?php echo $sound['play_count'] ?></p>
                                 <p>再生数</p>
@@ -193,6 +196,7 @@
                     </div>
                     
                     <?php /* コメント表示 */ ?>
+                    <?php if(false): ?>
                     <div class="comment_list col-xs-12">
                         <?php if( $sound['comment_count'] != 0 ):
                             echo '<h2>コメント</h2>';
@@ -224,7 +228,7 @@
                             ?>
                         </div>
                     </div>
-                    
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
